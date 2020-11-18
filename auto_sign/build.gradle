@@ -1,0 +1,39 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm'
+    id 'java'
+    id("org.jetbrains.dokka") version "1.4.0-rc"
+}
+
+sourceCompatibility = 1.8
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    implementation gradleApi()
+    implementation localGroovy()
+    implementation "com.android.tools.build:gradle:4.0.2"
+    implementation 'com.squareup.okhttp3:okhttp:4.4.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'net.dongliu:apk-parser:2.6.9'
+    testImplementation group: 'junit', name: 'junit', version: '4.13.1'
+}
+
+apply plugin: 'maven'
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: 'http://172.16.50.249:8981/repository/maven-releases/') {
+                authentication(userName: 'yuexiaohui', password: '123456')
+            }
+            // 调用方式就是 'com.tiger.auto.com.tiger.auto.sign:android-apk-com.tiger.auto.sign:1.0-SNAPSHOT'
+            pom.groupId = 'com.tiger.auto.sign'
+            pom.version = '1.0.4'
+            pom.artifactId = 'android-apk-plugin'
+            // repo仓库路径，可以使用相对路径
+//            repository(url: uri('../../repo'))
+        }
+    }
+}

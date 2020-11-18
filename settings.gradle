@@ -1,0 +1,3 @@
+include ':auto_sign'
+include ':app'
+rootProject.name = "Android_gradle_sign"
